@@ -82,17 +82,31 @@ Undertuber can be run directly inside YouTube via the Chromum Browser Extension,
 2. Open Chromium Based Browser and navigate to `yourbrowser://extensions/`.
 3. Enable **"Developer mode"** in the top right corner.
 4. Click **"Load unpacked"** and select the folder containing the extension files (`manifest.json`, `content.js`, etc.).
+
+<div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/extension_install.jpg" alt="Void Generator Buttons" width="400"/>
+</div>
+
 5. Open YouTube. Click the Undertuber (UT) icon in your browser toolbar to access the control panel.
 
   <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
-  <img src="thumbs/extension_install.jpg" alt="Void Generator Buttons" width="400"/>
+  <img src="thumbs/undertuber_extensionbar.jpg" alt="Void Generator Buttons" width="200"/>
 </div>
+
+
 
 ### Method 2: Website (Mobile & Desktop)
 1. Go to undertuber.neocities.org in any web browser.
 2. Configure your modifiers, select a generator, and click **"OPEN IN YOUTUBE"**.
 3. *Mobile Users:* Make sure the "Open in Mobile App" toggle is active to cast searches directly into the native YouTube app on iOS or Android.
+
+ <div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/undertuber_website.jpg" alt="Void Generator Buttons" width="600"/>
+</div>
+
 
 ---
 
