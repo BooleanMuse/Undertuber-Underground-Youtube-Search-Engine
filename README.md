@@ -17,38 +17,38 @@ This tool strips away algorithmic recommendations to uncover forgotten home vide
   <img src="thumbs/undertuber_feed.jpg" alt="Void Generator Buttons" width="800"/>
 </div>
 
-## Key Features
+## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> Key Features
 
-* **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed.
+* **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed. Entropy stand for 3 randomize letters on search so everytime is different.
 
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
   <img src="thumbs/search_bar.jpg" alt="Void Generator Buttons" width="600"/>
 </div>
 
-* **Feed & Sidebar Replacement:** Destroys YouTube's highly-curated homepage and related videos, replacing them with generative "Void Cards" that refresh with every click.
+* **Feed & Sidebar Replacement:** Destroys YouTube's highly-curated homepage and related videos, replacing them with generative "Void Cards" that refresh with every click. This one can be customize and also add your own words so its can be different everytime. The cool thing about the sidebars is that is related to the video you are watching too!
   
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
   <img src="thumbs/undertuber_sidebar.jpg" alt="Void Generator Buttons" width="600"/>
 </div>
 
-* **13 Button Generators:** One-click automated search queries designed to find specific types of obscure media.
-* **Era Enforcement:** Force searches and feeds to only pull videos from specific timeframes (e.g., 2005-2009, 2010-2013).
+* **13 Button Generators:** One-click automated search queries designed to find specific types of obscure media. If you only want to watch random stuff with your friends this is the best!
+* **Era Enforcement:** Force searches and feeds to only pull videos from specific timeframes (e.g., 2005-2009, 2010-2013). Go to the past! Now!
   <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
   <img src="thumbs/extension_1.jpg" alt="Void Generator Buttons" width="400"/>
 </div>
   
-* **Custom Vocabulary Integration:** Inject your own custom word lists with optional "Exact Quotes" enforcement to different searches.
-* **Local Image Pool:** Option to use up to 9,999 local images (`/img/1.png`, etc.) for feed thumbnails to maintain immersion.
+* **Custom Vocabulary Integration:** Inject your own custom word lists with optional "Exact Quotes" enforcement to different searches. This brings personalize recomendations of things you want!
+* **Local Image Pool:** Option to use up to 9,999 local images (`/img/1.png`, etc.) for feed thumbnails to maintain immersion. Add memes, anime chicks or whatever your eyes are pleased instead of an influencer or X million video essay of how many vertices does Mario 64 have!
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
   <img src="thumbs/extension_2.jpg" alt="Void Generator Buttons" width="400"/>
 </div>
 ---
 
-## The Void Generators Buttons
+## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> The Void Generators Buttons
 
 Undertuber has 13 buttons to pull specific data structures from YouTube.
 
@@ -57,23 +57,23 @@ Undertuber has 13 buttons to pull specific data structures from YouTube.
   <img src="thumbs/void_buttons.jpg" alt="Void Generator Buttons" width="400"/>
 </div>
 
-*  **Raw File:** `IMG_`, `MVI_`, `DSCN` followed by sequential digits.
-*  **Unicode:** Random obscure unicode blocks to find untagged foreign media.
-*  **Emoji:** Completely random emoji combinations.
-*  **Default:** "Untitled video", "test", "my movie".
-*  **Date:** Randomly generated past upload dates (`YYYYMMDD`, `MM/DD/YY`).
-*  **Code:** Random Hex, Base64 strings, or memory addresses.
-*  **Geo-Data:** Random GPS coordinates and Lat/Lon tags.
-*  **Dead Tech:** Legacy formats and hardware (`.rmvb`, `Amiga 500`, `MiniDV`).
-*  **Auto-Tag:** "Uploaded via Pixelpipe", "Sent from my BlackBerry".
-*  **Test Logs:** "Audio sync test", "webcam test 00", "render test".
-*  **Typo:** Generates deliberate misspellings of common words.
-*  **Number:** Sequential and random 4-digit strings.
-*  **Micro Ch.:** Targets extreme amateur channels ("personal vlog", "home lab").
+* <img src="icons/rawfile.png" alt="Void Buttons" width="40"/> **Raw File:** `IMG_`, `MVI_`, `DSCN` followed by sequential digits.
+* <img src="icons/unicode.png" alt="Void Buttons" width="40"/> **Unicode:** Random obscure unicode blocks to find untagged foreign media.
+* <img src="icons/emoji.png" alt="Void Buttons" width="40"/>  **Emoji:** Completely random emoji combinations.
+* <img src="icons/default.png" alt="Void Buttons" width="40"/>  **Default:** "Untitled video", "test", "my movie".
+* <img src="icons/date.png" alt="Void Buttons" width="40"/>  **Date:** Randomly generated past upload dates (`YYYYMMDD`, `MM/DD/YY`).
+* <img src="icons/code.png" alt="Void Buttons" width="40"/>  **Code:** Random Hex, Base64 strings, or memory addresses.
+* <img src="icons/geodata.png" alt="Void Buttons" width="40"/>  **Geo-Data:** Random GPS coordinates and Lat/Lon tags.
+* <img src="icons/deadtech.png" alt="Void Buttons" width="40"/>  **Dead Tech:** Legacy formats and hardware (`.rmvb`, `Amiga 500`, `MiniDV`).
+* <img src="icons/autotag.png" alt="Void Buttons" width="40"/>  **Auto-Tag:** "Uploaded via Pixelpipe", "Sent from my BlackBerry".
+* <img src="icons/testlogs.png" alt="Void Buttons" width="40"/>  **Test Logs:** "Audio sync test", "webcam test 00", "render test".
+* <img src="icons/typo.png" alt="Void Buttons" width="40"/>  **Typo:** Generates deliberate misspellings of common words.
+* <img src="icons/number.png" alt="Void Buttons" width="40"/>  **Number:** Sequential and random 4-digit strings.
+* <img src="icons/microchan.png" alt="Void Buttons" width="40"/>  **Micro Ch.:** Targets extreme amateur channels ("personal vlog", "home lab").
 
 ---
 
-##  Installation
+## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> Installation
 
 Undertuber can be run directly inside YouTube via the Chromum Browser Extension, or remotely via the Mobile-Friendly Website.
 
@@ -110,7 +110,7 @@ Undertuber can be run directly inside YouTube via the Chromum Browser Extension,
 
 ---
 
-##  Project Structure
+## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> Project Structure
 
 * `manifest.json` - Chromium extension configuration (Manifest V3).
 * `content.js` - The core engine. Runs natively in the YouTube DOM to handle UI injection, feed replacement, and event interception.
