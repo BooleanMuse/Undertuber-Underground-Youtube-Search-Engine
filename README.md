@@ -50,11 +50,11 @@ Undertuber has 13 buttons to pull specific data structures from YouTube.
 
 ##  Installation
 
-Undertuber can be run directly inside YouTube via the Chrome Extension, or remotely via the Mobile-Friendly Website.
+Undertuber can be run directly inside YouTube via the Chromum Browser Extension, or remotely via the Mobile-Friendly Website.
 
-### Method 1: Chrome Extension (Desktop)
+### Method 1: Chromium Browser Extension (Desktop)
 1. Download or clone this repository.
-2. Open Google Chrome and navigate to `chrome://extensions/`.
+2. Open Chromium Based Browser and navigate to `yourbrowser://extensions/`.
 3. Enable **"Developer mode"** in the top right corner.
 4. Click **"Load unpacked"** and select the folder containing the extension files (`manifest.json`, `content.js`, etc.).
 5. Open YouTube. Click the Undertuber (UT) icon in your browser toolbar to access the control panel.
