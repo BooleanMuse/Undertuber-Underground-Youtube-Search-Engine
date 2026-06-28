@@ -19,14 +19,14 @@ This tool strips away algorithmic recommendations to uncover forgotten home vide
 
 ## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> Key Features
 
-* **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed. Entropy stand for 3 randomize letters on search so everytime is different.
+* **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed. Entropy stands for 3 randomized letters on search, so everytime is different!
 
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
   <img src="thumbs/search_bar.jpg" alt="Void Generator Buttons" width="600"/>
 </div>
 
-* **Feed & Sidebar Replacement:** Destroys YouTube's highly-curated homepage and related videos, replacing them with generative "Void Cards" that refresh with every click. This one can be customize and also add your own words so its can be different everytime. The cool thing about the sidebars is that is related to the video you are watching too!
+* **Feed & Sidebar Replacement:** Destroys YouTube's highly-curated homepage and related videos, replacing them with generative "Void Cards" that refresh with every refresh. The feed and sidebars can be customize. The cool thing about the sidebars is that is related to the video you are watching!
   
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
