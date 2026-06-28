@@ -57,12 +57,10 @@
   .tog-name { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--text); }
 
   .void-grid { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--border); }
-  .vbtn { background:transparent; border:none; border-right:1px solid var(--border); border-bottom:1px solid var(--border); color:var(--muted); font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:11px 5px; cursor:pointer; transition:all 0.12s; display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .vbtn { background:transparent; border:none; border-right:1px solid var(--border); border-bottom:1px solid var(--border); color:var(--muted); font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:11px 5px; cursor:pointer; transition:all 0.12s; display:flex; flex-direction:column; align-items:center; gap:4px; }
   .vbtn:nth-child(3n) { border-right:none; }
   .vbtn:nth-last-child(-n+3) { border-bottom:none; }
   .vbtn:hover { background:var(--surface2); color:var(--text); }
-  
-  /* Ajuste preciso para las imágenes PNG */
   .vbtn .ico { width: 18px; height: 18px; object-fit: contain; display: block; opacity: 0.8; transition: opacity 0.2s; }
   .vbtn:hover .ico { opacity: 1; }
 
@@ -175,19 +173,19 @@
 
   <div class="sec">Void Generators</div>
   <div class="void-grid">
-    <button class="vbtn" data-method="rawfile"><img src="rawfile.png" class="ico" alt="Raw File">Raw File</button>
-    <button class="vbtn" data-method="unicode"><img src="unicode.png" class="ico" alt="Unicode">Unicode</button>
-    <button class="vbtn" data-method="emoji"><img src="emoji.png" class="ico" alt="Emoji">Emoji</button>
-    <button class="vbtn" data-method="default"><img src="default.png" class="ico" alt="Default">Default</button>
-    <button class="vbtn" data-method="date"><img src="date.png" class="ico" alt="Date">Date</button>
-    <button class="vbtn" data-method="code"><img src="code.png" class="ico" alt="Code">Code</button>
-    <button class="vbtn" data-method="geo"><img src="geodata.png" class="ico" alt="Geo-Data">Geo-Data</button>
-    <button class="vbtn" data-method="legacy"><img src="deadtech.png" class="ico" alt="Dead Tech">Dead Tech</button>
-    <button class="vbtn" data-method="autotag"><img src="autotag.png" class="ico" alt="Auto-Tag">Auto-Tag</button>
-    <button class="vbtn" data-method="testlog"><img src="testlogs.png" class="ico" alt="Test Logs">Test Logs</button>
-    <button class="vbtn" data-method="typo"><img src="typo.png" class="ico" alt="Typo">Typo</button>
-    <button class="vbtn" data-method="number"><img src="number.png" class="ico" alt="Number">Number</button>
-    <button class="vbtn" data-method="channel" style="grid-column: 1 / -1; background: #1a0000; border-color: #ff3333; color: #ff3333;"><img src="microchan.png" class="ico" alt="Micro Ch.">Micro Ch.</button>
+    <button class="vbtn" data-method="rawfile"><img src="icons/rawfile.png" class="ico" alt="Raw File">Raw File</button>
+    <button class="vbtn" data-method="unicode"><img src="icons/unicode.png" class="ico" alt="Unicode">Unicode</button>
+    <button class="vbtn" data-method="emoji"><img src="icons/emoji.png" class="ico" alt="Emoji">Emoji</button>
+    <button class="vbtn" data-method="default"><img src="icons/default.png" class="ico" alt="Default">Default</button>
+    <button class="vbtn" data-method="date"><img src="icons/date.png" class="ico" alt="Date">Date</button>
+    <button class="vbtn" data-method="code"><img src="icons/code.png" class="ico" alt="Code">Code</button>
+    <button class="vbtn" data-method="geo"><img src="icons/geodata.png" class="ico" alt="Geo-Data">Geo-Data</button>
+    <button class="vbtn" data-method="legacy"><img src="icons/deadtech.png" class="ico" alt="Dead Tech">Dead Tech</button>
+    <button class="vbtn" data-method="autotag"><img src="icons/autotag.png" class="ico" alt="Auto-Tag">Auto-Tag</button>
+    <button class="vbtn" data-method="testlog"><img src="icons/testlogs.png" class="ico" alt="Test Logs">Test Logs</button>
+    <button class="vbtn" data-method="typo"><img src="icons/typo.png" class="ico" alt="Typo">Typo</button>
+    <button class="vbtn" data-method="number"><img src="icons/number.png" class="ico" alt="Number">Number</button>
+    <button class="vbtn" data-method="channel" style="grid-column: 1 / -1; background: #1a0000; border-color: #ff3333; color: #ff3333;"><img src="icons/microchan.png" class="ico" alt="Micro Ch.">Micro Ch.</button>
   </div>
   <div class="out"><span id="output-text">awaiting input<span class="blink">_</span></span></div>
   <button class="exec" id="exec-btn">Execute Search</button>

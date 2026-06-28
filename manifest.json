@@ -11,7 +11,7 @@
   "host_permissions": ["https://www.youtube.com/*"],
   "web_accessible_resources": [
     {
-      "resources": ["logo.png", "logo_archive.png", "img/*"],
+      "resources": ["logo.png", "logo_archive.png", "img/*", "icons/*"],
       "matches": ["https://www.youtube.com/*"]
     }
   ],
