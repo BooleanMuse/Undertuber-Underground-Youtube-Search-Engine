@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Undertuber // Underground Youtube Search Engine",
+  "description": "Hijacks YouTube search to block content with real human videos.",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Undertuber"
+  },
+  "permissions": ["storage", "tabs", "unlimitedStorage"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["logo.png", "logo_archive.png", "img/*"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16":  "icon16.png",
+    "48":  "icon48.png",
+    "128": "icon128.png"
+  }
+}

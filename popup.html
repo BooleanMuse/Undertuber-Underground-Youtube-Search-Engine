@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Undertuber</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red:#ff3333;--red-dim:#7a1515;--bg:#050505;
+    --surface:#0e0e0e;--surface2:#141414;
+    --border:#1e1e1e;--border2:#333;
+    --text:#e0e0e0;--muted:#555;--dim:#2a2a2a;
+  }
+  body { width:340px; background:var(--bg); color:var(--text); font-family:'Space Mono',monospace; }
+
+  .topbar { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--border); min-height: 50px; }
+  .main-logo { height:auto; max-height:40px; width:auto; max-width:180px; object-fit:contain; display:block; }
+
+  .status { display:flex; align-items:center; gap:7px; }
+  .status-dot { width:6px; height:6px; border-radius:50%; background:#252525; transition:background 0.2s; }
+  .status-dot.on { background:var(--red); box-shadow:0 0 5px var(--red); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.5} }
+  .status-label { font-size:8px; letter-spacing:2px; color:var(--muted); transition: color 0.2s; }
+
+  .master-row { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--border); background:#080808; cursor:pointer; }
+  .master-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text); }
+
+  .sw { appearance:none; width:32px; height:16px; background:#1a1a1a; border-radius:20px; position:relative; cursor:pointer; outline:none; flex-shrink:0; transition:background 0.2s; border:1px solid #2a2a2a; }
+  .sw::after { content:''; position:absolute; top:2px; left:2px; width:10px; height:10px; background:#333; border-radius:50%; transition:transform 0.2s,background 0.2s; }
+  .sw:checked { background:#2a0000; border-color:var(--red-dim); }
+  .sw:checked::after { transform:translateX(16px); background:var(--red); }
+
+  .tabs { display:flex; border-bottom:1px solid var(--border); }
+  .tab { flex:1; background:none; border:none; border-right:1px solid var(--border); color:var(--muted); font-family:'Space Mono',monospace; font-size:8px; letter-spacing:2px; text-transform:uppercase; padding:8px 4px; cursor:pointer; transition:all 0.15s; }
+  .tab:last-child { border-right:none; }
+  .tab.active { color:var(--red); background:#0a0a0a; }
+  .tab:hover:not(.active) { color:var(--text); }
+
+  .panel { display:none; }
+  .panel.active { display:block; }
+  .sec { font-size:7px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); padding:6px 12px; border-bottom:1px solid var(--border); background:var(--bg); }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); }
+  .cell { border-right:1px solid var(--border); }
+  .cell:nth-child(even) { border-right:none; }
+  .cell select, .full-row select { width:100%; background:transparent; color:var(--text); border:none; padding:8px 10px; font-family:'Space Mono',monospace; font-size:10px; outline:none; cursor:pointer; appearance:none; }
+  .cell select option, .full-row select option { background:#111; }
+  .full-row { border-bottom:1px solid var(--border); }
+
+  .togs { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); }
+  .tog { display:flex; align-items:center; justify-content:space-between; padding:9px 12px; cursor:pointer; border-right:1px solid var(--border); border-bottom:1px solid var(--border); transition:background 0.12s; gap:8px; }
+  .tog:nth-child(even) { border-right:none; }
+  .tog:nth-last-child(-n+2) { border-bottom:none; }
+  .tog.wide { grid-column:1/-1; border-right:none; border-bottom:none; }
+  .tog:hover { background:var(--surface2); }
+  .tog-name { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--text); }
+
+  .void-grid { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--border); }
+  .vbtn { background:transparent; border:none; border-right:1px solid var(--border); border-bottom:1px solid var(--border); color:var(--muted); font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:11px 5px; cursor:pointer; transition:all 0.12s; display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .vbtn:nth-child(3n) { border-right:none; }
+  .vbtn:nth-last-child(-n+3) { border-bottom:none; }
+  .vbtn:hover { background:var(--surface2); color:var(--text); }
+  
+  /* Ajuste preciso para las imágenes PNG */
+  .vbtn .ico { width: 18px; height: 18px; object-fit: contain; display: block; opacity: 0.8; transition: opacity 0.2s; }
+  .vbtn:hover .ico { opacity: 1; }
+
+  .search-row { display:flex; border-bottom:1px solid var(--border); }
+  .search-row input { flex:1; background:transparent; color:var(--text); border:none; padding:10px 10px; font-family:'Space Mono',monospace; font-size:12px; outline:none; min-width:0; }
+  .search-row input::placeholder { color:var(--dim); font-size:10px; }
+  .search-clr { background:none; border:none; border-left:1px solid var(--border); color:var(--muted); padding:0 11px; cursor:pointer; font-size:14px; transition:color 0.15s; }
+  .search-clr:hover { color:var(--red); }
+
+  .out { background:#000; padding:8px 12px; font-size:9px; color:var(--red); min-height:28px; word-break:break-all; line-height:1.5; display:flex; align-items:center; gap:5px; border-top:1px solid var(--border); }
+  .exec { width:100%; background:var(--red); color:#000; border:none; padding:11px; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.15s; }
+  .exec:hover { background:#ff5555; }
+
+  [data-tip] { position:relative; }
+  [data-tip]::after {
+    content: attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%);
+    background:#1a1a1a; border:1px solid var(--border2); color:#aaa; font-size:8px; letter-spacing:1px; line-height:1.5;
+    padding:5px 8px; border-radius:2px; pointer-events:none; opacity:0; transition:opacity 0.15s; z-index:9999; max-width:220px; white-space:normal; text-align:center;
+  }
+  [data-tip]:hover::after { opacity:1; }
+  .blink { animation:blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="logo.png" alt="Undertuber" class="main-logo" id="popup-main-logo">
+  <div class="status">
+    <div class="status-dot" id="status-dot"></div>
+    <div class="status-label" id="status-label">INACTIVE</div>
+  </div>
+</div>
+
+<label class="master-row" data-tip="Enable Undertuber on YouTube">
+  <div class="master-label">Enable on YouTube</div>
+  <input type="checkbox" id="master-toggle" class="sw">
+</label>
+<label class="master-row" style="background:#0a0a0a;" data-tip="Take over the native YouTube search bar">
+  <div class="master-label">Hijack Search Bar</div>
+  <input type="checkbox" id="intercept-toggle" class="sw">
+</label>
+<label class="master-row" style="background:#0e0e0e;" data-tip="Replace the YouTube logo with the Undertuber logo">
+  <div class="master-label">Replace Logo</div>
+  <input type="checkbox" id="logo-toggle" class="sw">
+</label>
+
+<div class="tabs">
+  <button class="tab active" data-tab="search">Search</button>
+  <button class="tab" data-tab="feeds">Feeds</button>
+  <button class="tab" data-tab="filters">Filters</button>
+</div>
+
+<div class="panel active" id="panel-search">
+  <div class="search-row">
+    <input type="text" id="keyword-input" placeholder="keyword or leave empty..." autocomplete="off" spellcheck="false">
+    <button class="search-clr" id="clear-btn" data-tip="Clear input">×</button>
+  </div>
+  <div class="grid2">
+    <div class="cell">
+      <select id="region-select">
+        <option value="en-US">English</option><option value="es-MX">Spanish</option><option value="pt-BR">Portuguese</option>
+        <option value="ru-RU">Russian</option><option value="ja-JP">Japanese</option><option value="ko-KR">Korean</option>
+        <option value="zh-TW">Chinese (Trad)</option><option value="ar-SA">Arabic</option><option value="hi-IN">Hindi</option>
+        <option value="th-TH">Thai</option><option value="vi-VN">Vietnamese</option><option value="el-GR">Greek</option>
+        <option value="he-IL">Hebrew</option><option value="uk-UA">Ukrainian</option><option value="fa-IR">Persian</option>
+        <option value="ka-GE">Georgian</option><option value="am-ET">Amharic</option><option value="mn-MN">Mongolian</option>
+      </select>
+    </div>
+    <div class="cell">
+      <select id="era-select">
+        <option value="any" selected>Any Era</option>
+        <option value="today">Last 24h</option>
+        <option value="random">Random Year</option>
+        <option disabled>── Eras ──</option>
+        <option value="2005-2009">2005–09</option>
+        <option value="2010-2013">2010–13</option>
+        <option value="2014-2016">2014–16</option>
+        <option value="2017-2019">2017–19</option>
+        <option value="2020-2023">2020–23</option>
+        <option value="2024-2026">2024–26</option>
+      </select>
+    </div>
+    <div class="cell">
+      <select id="category-select">
+        <option value="any">Any Category</option><option value="Film &amp; Animation">Film &amp; Anim</option>
+        <option value="Music">Music</option><option value="Pets &amp; Animals">Pets</option><option value="Sports">Sports</option>
+        <option value="Travel &amp; Events">Travel</option><option value="Gaming">Gaming</option>
+        <option value="People &amp; Blogs">Blogs</option><option value="Comedy">Comedy</option>
+        <option value="Entertainment">Entertainment</option><option value="News &amp; Politics">News</option>
+        <option value="Education">Education</option><option value="Science &amp; Technology">Science</option>
+      </select>
+    </div>
+    <div class="cell">
+      <select id="source-select">
+        <option value="any">Any Source</option><option value="mobile">Mobile (.3gp)</option>
+        <option value="camcorder">Camcorder</option><option value="pc">Legacy PC</option>
+        <option value="dvd">DVD Rip</option><option value="console">Console Cap</option><option value="meeting">Meeting</option>
+      </select>
+    </div>
+  </div>
+  <div class="full-row">
+    <select id="sort-select">
+      <option value="relevance">Sort: Relevance</option><option value="date">Sort: Newest</option>
+      <option value="date_asc">Sort: Oldest</option><option value="viewCount_asc">Sort: Least Viewed</option>
+      <option value="viewCount">Sort: Most Viewed</option><option value="rating">Sort: Top Rated</option>
+      <option value="live">Sort: Live Only</option>
+    </select>
+  </div>
+
+  <div class="sec">Void Generators</div>
+  <div class="void-grid">
+    <button class="vbtn" data-method="rawfile"><img src="rawfile.png" class="ico" alt="Raw File">Raw File</button>
+    <button class="vbtn" data-method="unicode"><img src="unicode.png" class="ico" alt="Unicode">Unicode</button>
+    <button class="vbtn" data-method="emoji"><img src="emoji.png" class="ico" alt="Emoji">Emoji</button>
+    <button class="vbtn" data-method="default"><img src="default.png" class="ico" alt="Default">Default</button>
+    <button class="vbtn" data-method="date"><img src="date.png" class="ico" alt="Date">Date</button>
+    <button class="vbtn" data-method="code"><img src="code.png" class="ico" alt="Code">Code</button>
+    <button class="vbtn" data-method="geo"><img src="geodata.png" class="ico" alt="Geo-Data">Geo-Data</button>
+    <button class="vbtn" data-method="legacy"><img src="deadtech.png" class="ico" alt="Dead Tech">Dead Tech</button>
+    <button class="vbtn" data-method="autotag"><img src="autotag.png" class="ico" alt="Auto-Tag">Auto-Tag</button>
+    <button class="vbtn" data-method="testlog"><img src="testlogs.png" class="ico" alt="Test Logs">Test Logs</button>
+    <button class="vbtn" data-method="typo"><img src="typo.png" class="ico" alt="Typo">Typo</button>
+    <button class="vbtn" data-method="number"><img src="number.png" class="ico" alt="Number">Number</button>
+    <button class="vbtn" data-method="channel" style="grid-column: 1 / -1; background: #1a0000; border-color: #ff3333; color: #ff3333;"><img src="microchan.png" class="ico" alt="Micro Ch.">Micro Ch.</button>
+  </div>
+  <div class="out"><span id="output-text">awaiting input<span class="blink">_</span></span></div>
+  <button class="exec" id="exec-btn">Execute Search</button>
+</div>
+
+<div class="panel" id="panel-feeds">
+  <div class="togs">
+    <label class="tog wide" data-tip="Replace YouTube's Home Page Feed with Void Cards">
+      <div class="tog-name" style="color:var(--red)">Replace Home Feed</div>
+      <input type="checkbox" id="home-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Replace YouTube's recommended sidebar">
+      <div class="tog-name">Replace Sidebar</div>
+      <input type="checkbox" id="sidebar-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Randomize feeds on each new video">
+      <div class="tog-name">Auto-Refresh</div>
+      <input type="checkbox" id="sidebar-autorefresh" class="sw">
+    </label>
+    <label class="tog" data-tip="Use local images from the /img folder">
+      <div class="tog-name" style="color:var(--red)">Image Thumbs</div>
+      <input type="checkbox" id="image-thumbs-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Total number of images in your /img folder">
+      <div class="tog-name">Img Pool Size</div>
+      <input type="number" id="image-pool-size" min="1" max="9999" value="200" style="width:45px; background:#000; color:#fff; border:1px solid #333; font-family:monospace; text-align:center; outline:none; padding: 2px;">
+    </label>
+    <label class="tog wide" data-tip="Apply random era filters to feed searches">
+      <div class="tog-name">Enforce Feed Era</div>
+      <input type="checkbox" id="feed-era-toggle" class="sw" checked>
+    </label>
+  </div>
+
+  <div class="sec">Custom Recommendations (Vocab)</div>
+  <div style="padding: 10px 14px; border-bottom: 1px solid var(--border); background: #0a0a0a;">
+    <textarea id="vocab-text" placeholder="Paste your words here...&#10;One per line" style="width:100%; height:60px; background:#000; color:var(--text); border:1px solid #333; padding:8px; font-family:monospace; font-size:9px; resize:vertical; outline:none; margin-bottom:6px;"></textarea>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div id="vocab-count" style="font-size:8px; color:var(--red); font-family:monospace; width:40px;">0 WORDS</div>
+      <label style="display:flex; align-items:center; gap:4px; cursor:pointer;" data-tip="Wrap vocab in exact match quotes">
+        <span style="font-size:8px; color:var(--text); font-family:monospace; text-transform:uppercase;">Quotes</span>
+        <input type="checkbox" id="vocab-quotes-toggle" class="sw" checked>
+      </label>
+      <button id="btn-save-vocab" style="background:#222;color:#aaa;border:1px solid #444;font-size:8px;padding:4px 8px;cursor:pointer;font-family:monospace; transition:all 0.2s;">SAVE VOCAB</button>
+    </div>
+  </div>
+
+  <div class="sec">Feeds Era</div>
+  <div class="full-row">
+    <select id="sidebar-era">
+      <option value="any" selected>Any Era</option>
+      <option value="today">Last 24h</option>
+      <option value="random">Random Year</option>
+      <option disabled>── Eras ──</option>
+      <option value="2005-2009">2005–09</option>
+      <option value="2010-2013">2010–13</option>
+      <option value="2014-2016">2014–16</option>
+      <option value="2017-2019">2017–19</option>
+      <option value="2020-2023">2020–23</option>
+      <option value="2024-2026">2024–26</option>
+    </select>
+  </div>
+</div>
+
+<div class="panel" id="panel-filters">
+  <div class="togs">
+    <label class="tog wide" data-tip="Append Era to Generator Searches">
+      <div class="tog-name" style="color:var(--red)">Apply Era to Gens</div>
+      <input type="checkbox" id="apply-era-toggle" class="sw" checked>
+    </label>
+    <label class="tog" data-tip="Wrap the query in quotes">
+      <div class="tog-name">Exact Match</div>
+      <input type="checkbox" id="exact-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Append 3 random characters">
+      <div class="tog-name">Entropy</div>
+      <input type="checkbox" id="entropy-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Introduce deliberate typos">
+      <div class="tog-name">Typo Mode</div>
+      <input type="checkbox" id="typo-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Append a default video title">
+      <div class="tog-name">Default Title</div>
+      <input type="checkbox" id="default-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Use only 1 character">
+      <div class="tog-name">Single Char</div>
+      <input type="checkbox" id="single-toggle" class="sw">
+    </label>
+    <label class="tog" data-tip="Surface only live streams">
+      <div class="tog-name" style="color:var(--red)">Live Void Only</div>
+      <input type="checkbox" id="live-toggle" class="sw">
+    </label>
+  </div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
