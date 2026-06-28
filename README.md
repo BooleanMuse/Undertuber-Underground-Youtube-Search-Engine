@@ -20,12 +20,32 @@ This tool strips away algorithmic recommendations to uncover forgotten home vide
 ## Key Features
 
 * **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed.
+
+<div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/search_bar.jpg" alt="Void Generator Buttons" width="600"/>
+</div>
+
 * **Feed & Sidebar Replacement:** Destroys YouTube's highly-curated homepage and related videos, replacing them with generative "Void Cards" that refresh with every click.
+  
+<div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/undertuber_sidebar.jpg" alt="Void Generator Buttons" width="600"/>
+</div>
+
 * **13 Button Generators:** One-click automated search queries designed to find specific types of obscure media.
 * **Era Enforcement:** Force searches and feeds to only pull videos from specific timeframes (e.g., 2005-2009, 2010-2013).
-* **Custom Vocabulary Integration:** Inject your own custom word lists with optional "Exact Quotes" enforcement to guide the void.
-* **Local Image Pool:** Option to use up to 9,999 local images (`/img/1.png`, etc.) for feed thumbnails to maintain immersion, complete with an emoji-gradient fallback system.
-
+  <div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/extension_1.jpg" alt="Void Generator Buttons" width="400"/>
+</div>
+  
+* **Custom Vocabulary Integration:** Inject your own custom word lists with optional "Exact Quotes" enforcement to different searches.
+* **Local Image Pool:** Option to use up to 9,999 local images (`/img/1.png`, etc.) for feed thumbnails to maintain immersion.
+<div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/extension_2.jpg" alt="Void Generator Buttons" width="400"/>
+</div>
 ---
 
 ## The Void Generators Buttons
@@ -64,6 +84,11 @@ Undertuber can be run directly inside YouTube via the Chromum Browser Extension,
 4. Click **"Load unpacked"** and select the folder containing the extension files (`manifest.json`, `content.js`, etc.).
 5. Open YouTube. Click the Undertuber (UT) icon in your browser toolbar to access the control panel.
 
+  <div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/extension_install.jpg" alt="Void Generator Buttons" width="400"/>
+</div>
+
 ### Method 2: Website (Mobile & Desktop)
 1. Go to undertuber.neocities.org in any web browser.
 2. Configure your modifiers, select a generator, and click **"OPEN IN YOUTUBE"**.
@@ -73,7 +98,7 @@ Undertuber can be run directly inside YouTube via the Chromum Browser Extension,
 
 ##  Project Structure
 
-* `manifest.json` - Chrome extension configuration (Manifest V3).
+* `manifest.json` - Chromium extension configuration (Manifest V3).
 * `content.js` - The core engine. Runs natively in the YouTube DOM to handle UI injection, feed replacement, and event interception.
 * `popup.html` & `popup.js` - The extension control panel.
 * `index.html` - The standalone web app terminal.
