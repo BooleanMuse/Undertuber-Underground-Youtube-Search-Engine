@@ -1,4 +1,4 @@
-// ── UNDERTUBER POPUP JS v29.1 ────────────────────────────────────────────────
+// ── UNDERTUBER POPUP JS v1.0 ────────────────────────────────────────────────
 
 const CAMERA_PREFIXES = ['IMG_','MVI_','DSC_','DSCN','MOV0','PIC_','WP_','VID_','CIMG','P10','100_','PICT','SDV_','MOV_','DVC_','CAM_','P00','P_20','GOPR','GH01','clip_','video_','capture_','rec_','take_'];
 const DEFAULT_TITLES = ['untitled video','my video','test upload','video (2)','video (1)','untitled project 1','my movie','new video','first video','test','untitled','video0001','home video','birthday video','vacation video','funny video','upload','vid0001','untitled1','movie','video clip'];

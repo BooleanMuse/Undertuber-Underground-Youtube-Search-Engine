@@ -1,4 +1,4 @@
-// ── UNDERTUBER CONTENT SCRIPT v29.1 (NATIVE World) ──────────────────────────
+// ── UNDERTUBER CONTENT SCRIPT v1.0 (NATIVE World) ──────────────────────────
 //
 // RESTORED: 'UT' Searchbar UI Button explicitly for Modifiers only.
 // REMOVED: Void Generators grid from Searchbar dropdown to prevent DOM issues.
