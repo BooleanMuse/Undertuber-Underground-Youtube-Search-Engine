@@ -12,6 +12,11 @@ Undertuber is an extension and website I created to bypass the youtube constant 
 
 This tool strips away algorithmic recommendations to uncover forgotten home videos, raw camera dumps, obscure test logs, and the truly weird side of the internet.
 
+<div align="center">
+  <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
+  <img src="thumbs/undertuber_feed.jpg" alt="Void Generator Buttons" width="800"/>
+</div>
+
 ## Key Features
 
 * **Search Bar Hijack:** Intercepts native YouTube searches and injects modifiers (dates, entropy, exact match) before the query is processed.
@@ -29,7 +34,7 @@ Undertuber has 13 buttons to pull specific data structures from YouTube.
 
 <div align="center">
   <!-- Reemplaza esta ruta con tu imagen de la cuadrícula de botones -->
-  <img src="generators_preview.png" alt="Void Generator Buttons" width="400"/>
+  <img src="thumbs/void_buttons.jpg" alt="Void Generator Buttons" width="400"/>
 </div>
 
 *  **Raw File:** `IMG_`, `MVI_`, `DSCN` followed by sequential digits.
