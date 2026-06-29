@@ -8,7 +8,7 @@
 ---
 
 
-Undertuber is an extension and website I created to bypass the youtube constant algorithm videos (influencers and video essays, you know what I mean) and search cool underground videos on the platform.
+Undertuber is an extension and website I created to bypass the Youtube constant algorithm videos (influencers,shorts, video essays and talking air heads, you know what I mean) and instead search for cool underground videos on the platform.
 
 This tool strips away algorithmic recommendations to uncover forgotten home videos, raw camera dumps, obscure test logs, and the truly weird side of the internet.
 
