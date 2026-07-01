@@ -1,8 +1,7 @@
-// ── UNDERTUBER CONTENT SCRIPT v1.0 (NATIVE World) ──────────────────────────
+// ── UNDERTUBER CONTENT SCRIPT v1.1 (NATIVE World) ──────────────────────────
 //
-// RESTORED: 'UT' Searchbar UI Button explicitly for Modifiers only.
-// REMOVED: Void Generators grid from Searchbar dropdown to prevent DOM issues.
-// SECURED: Native Image loading logic remains intact for flawless thumbnails.
+// FIXED: Dropdown menu closing unexpectedly when clicking select options.
+// SECURED: Added composedPath() and event propagation blockers for YT Shadow DOM.
 
 (function () {
   'use strict';
@@ -48,8 +47,8 @@
    const yy = String(y).slice(-2);
    const formats = [
      `${y}${m}${d}`, `${y}-${m}-${d}`, `${d}-${m}-${y}`,
- `${m}/${d}/${y}`, `${m}/${d}/${yy}`,
- `${y}_${m}_${d}`, `${d}_${m}_${y}`, `${y} ${m} ${d}`
+     `${m}/${d}/${y}`, `${m}/${d}/${yy}`,
+     `${y}_${m}_${d}`, `${d}_${m}_${y}`, `${y} ${m} ${d}`
    ];
    return rnd(formats);
  }
@@ -57,8 +56,8 @@
  function randCodeStr() {
    return rnd([
      () => Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 6),
-              () => '0x' + Math.random().toString(16).substring(2, 10).toUpperCase(),
-              () => btoa(Math.random().toString()).substring(0, 10).replace(/[^a-zA-Z0-9]/g, '')
+     () => '0x' + Math.random().toString(16).substring(2, 10).toUpperCase(),
+     () => btoa(Math.random().toString()).substring(0, 10).replace(/[^a-zA-Z0-9]/g, '')
    ])();
  }
 
@@ -77,7 +76,7 @@
    }
 
    const method = rnd(['date','code','geo','legacy','autotag','testlog','rawfile','unicode','emoji','default','typo','number']);
-
+   
    if (method === 'date')    return randDateStr();
    if (method === 'code')    return randCodeStr();
    if (method === 'geo')     return randGeo();
@@ -176,17 +175,18 @@
    if (safeS.exact) w = `"${w}"`;
    if (safeS.defaultTitle) w += ' ' + rnd(DEFAULT_TITLES);
    if (safeS.entropy)      w += ' ' + randChars(3);
-
+   
    if (safeS.applyEra !== false) {
      w += buildDateStr(safeS.era);
    }
+   
    return w.replace(/\s+/g, ' ').trim();
  }
 
- // ── CARGA NATIVA DESDE CHROME STORAGE (Sin puente) ──
+ // ── CARGA NATIVA DE AJUSTES (A PRUEBA DE FALLOS DE URLS) ──
  function loadExtensionData(callback) {
    if (typeof chrome === 'undefined' || !chrome.storage) return;
-
+   
    chrome.storage.sync.get('undertube', data => {
      chrome.storage.local.get(['ut_custom_vocab'], localData => {
        S = data.undertube || { enabled: false };
@@ -194,7 +194,7 @@
        S.defaultLogoUrl = chrome.runtime.getURL('logo.png');
        S.archiveLogoUrl = chrome.runtime.getURL('logo_archive.png');
        S.imgFolderUrl = chrome.runtime.getURL('img/');
-
+       
        if (callback) callback();
      });
    });
@@ -202,11 +202,7 @@
 
  loadExtensionData(() => {
    if (!S.enabled) {
-     restoreSearchBar();
-     restoreSidebar();
-     restoreHome();
-     removeInPageUI();
-     restoreLogo();
+     restoreSearchBar(); restoreSidebar(); restoreHome(); removeInPageUI(); restoreLogo(); 
    } else {
      handlePage();
    }
@@ -231,19 +227,19 @@
 
  function hookNavigation() {
    document.addEventListener('yt-navigate-start', async (e) => {
-
-     if (isWatch() && S && S.sidebarAutoRefresh) {
+     const safeS = S || {};
+     if (isWatch() && safeS.sidebarAutoRefresh) {
        const cards = document.getElementById('_ut_cards');
        if (cards) cards.replaceChildren();
        sidebarInjected = false;
      }
 
-     if (isHome() && S && S.sidebarAutoRefresh) {
+     if (isHome() && safeS.sidebarAutoRefresh) {
        const homeGrid = document.getElementById('_ut_home_cards');
        if (homeGrid) homeGrid.replaceChildren();
      }
 
-     if (!S || !S.enabled || !S.interceptSearch) return;
+     if (!safeS.enabled || !safeS.interceptSearch) return;
 
      let url = e.detail?.url || '';
      if (url.includes('/results?search_query=')) {
@@ -253,11 +249,11 @@
        let rawQuery = match ? decodeURIComponent(match[1].replace(/\+/g, ' ')) : '';
        if (!rawQuery) rawQuery = rnd(DEFAULT_TITLES);
 
-       const modifiedQuery = await applyModifiers(rawQuery, S);
-       const [lang, country] = (S.region || 'en-US').split('-');
-
-       const spStr = S.tempSp ? `&sp=${S.tempSp}` : buildSP(S.era, S.sort, S.live);
-       S.tempSp = null;
+       const modifiedQuery = await applyModifiers(rawQuery, safeS);
+       const [lang, country] = (safeS.region || 'en-US').split('-');
+       
+       const spStr = safeS.tempSp ? `&sp=${safeS.tempSp}` : buildSP(safeS.era, safeS.sort, safeS.live);
+       if(S) S.tempSp = null;
 
        const finalUrl = `/results?search_query=${encodeURIComponent(modifiedQuery)}&hl=${lang}&gl=${country}${spStr}&ut=1`;
 
@@ -276,7 +272,7 @@
  }
 
  function handlePage() {
-   if (!S || !S.enabled || !S.defaultLogoUrl) return;
+   if (!S || !S.enabled || !S.defaultLogoUrl) return; 
    styleSearchBar();
    styleLogo();
    injectInPageUI();
@@ -309,16 +305,16 @@
        customImg.id = '_ut_logo_img';
        customImg.style.cssText = 'max-height: 35px; width: auto; max-width: 250px; object-fit: contain; display: block;';
        customImg.src = S.defaultLogoUrl;
-
-       customImg.onerror = () => { customImg.style.display = 'none'; };
+       
+       customImg.onerror = () => { customImg.style.display = 'none'; }; 
 
        customContainer.appendChild(customImg);
        mastheadStart.insertBefore(customContainer, nativeLogoContainer);
      } else {
        const imgEl = customContainer.querySelector('#_ut_logo_img');
        if (imgEl && imgEl.src !== S.defaultLogoUrl) {
-         imgEl.src = S.defaultLogoUrl;
-         imgEl.style.display = 'block';
+           imgEl.src = S.defaultLogoUrl;
+           imgEl.style.display = 'block';
        }
      }
      customContainer.style.display = 'flex';
@@ -334,12 +330,8 @@
    if (customContainer) customContainer.style.display = 'none';
  }
 
- // ── MENU DE MODIFICADORES LIMPIO EN SEARCHBAR (SIN GENERADORES) ──
  function injectInPageUI() {
-   if (!S.interceptSearch) {
-     removeInPageUI();
-     return;
-   }
+   if (!S.interceptSearch) { removeInPageUI(); return; }
    if (document.getElementById('_ut_search_btn_wrapper')) return;
 
    const searchForm = document.querySelector('ytd-searchbox #search-form, .ytSearchboxComponentSearchForm, ytd-searchbox');
@@ -403,17 +395,22 @@
        else S[key] = input.checked;
        try { chrome.storage.sync.set({ undertube: S }); } catch(err){}
      };
+     
+     // Bloquear propagación en los inputs para que YT no los intercepte
+     input.addEventListener('click', e => e.stopPropagation());
+     input.addEventListener('mousedown', e => e.stopPropagation());
+     
      row.appendChild(input);
      dropdown.appendChild(row);
    };
 
    let eraOpts = [
      {val:'any', txt:'Any Era'}, {val:'today', txt:'Last 24h'}, {val:'random', txt:'Random Year'},
- {val:'', txt:'── Eras ──'},
- {val:'2005-2009', txt:'2005-09'}, {val:'2010-2013', txt:'2010-13'},
- {val:'2014-2016', txt:'2014-16'}, {val:'2017-2019', txt:'2017-19'}, {val:'2020-2023', txt:'2020-23'},
- {val:'2024-2026', txt:'2024-26'},
- {val:'', txt:'── Years ──'}
+     {val:'', txt:'── Eras ──'},
+     {val:'2005-2009', txt:'2005-09'}, {val:'2010-2013', txt:'2010-13'},
+     {val:'2014-2016', txt:'2014-16'}, {val:'2017-2019', txt:'2017-19'}, {val:'2020-2023', txt:'2020-23'},
+     {val:'2024-2026', txt:'2024-26'},
+     {val:'', txt:'── Years ──'}
    ];
    const currentYear = new Date().getFullYear();
    for(let i=2005; i<=currentYear; i++) {
@@ -422,14 +419,14 @@
 
    const langOpts = [
      {val:'en-US', txt:'English'}, {val:'es-MX', txt:'Spanish'},
- {val:'pt-BR', txt:'Portuguese'}, {val:'ru-RU', txt:'Russian'},
- {val:'ja-JP', txt:'Japanese'}, {val:'ko-KR', txt:'Korean'},
- {val:'zh-TW', txt:'Chinese (Trad)'}, {val:'ar-SA', txt:'Arabic'},
- {val:'hi-IN', txt:'Hindi'}, {val:'th-TH', txt:'Thai'},
- {val:'vi-VN', txt:'Vietnamese'}, {val:'el-GR', txt:'Greek'},
- {val:'he-IL', txt:'Hebrew'}, {val:'uk-UA', txt:'Ukrainian'},
- {val:'fa-IR', txt:'Persian'}, {val:'ka-GE', txt:'Georgian'},
- {val:'am-ET', txt:'Amharic'}, {val:'mn-MN', txt:'Mongolian'}
+     {val:'pt-BR', txt:'Portuguese'}, {val:'ru-RU', txt:'Russian'},
+     {val:'ja-JP', txt:'Japanese'}, {val:'ko-KR', txt:'Korean'},
+     {val:'zh-TW', txt:'Chinese (Trad)'}, {val:'ar-SA', txt:'Arabic'},
+     {val:'hi-IN', txt:'Hindi'}, {val:'th-TH', txt:'Thai'},
+     {val:'vi-VN', txt:'Vietnamese'}, {val:'el-GR', txt:'Greek'},
+     {val:'he-IL', txt:'Hebrew'}, {val:'uk-UA', txt:'Ukrainian'},
+     {val:'fa-IR', txt:'Persian'}, {val:'ka-GE', txt:'Georgian'},
+     {val:'am-ET', txt:'Amharic'}, {val:'mn-MN', txt:'Mongolian'}
    ];
 
    makeDropdownRow('Language', 'region', 'select', langOpts);
@@ -438,19 +435,28 @@
    makeDropdownRow('Exact Match', 'exact', 'checkbox');
    makeDropdownRow('Entropy', 'entropy', 'checkbox');
 
+   // ── SOLUCIÓN DE SEGURIDAD PARA EL DESPLEGABLE ──
+   // Evita que los clics internos cierren el menú
+   dropdown.addEventListener('click', (e) => e.stopPropagation());
+   dropdown.addEventListener('mousedown', (e) => e.stopPropagation());
+
    btn.addEventListener('click', (e) => {
      e.preventDefault(); e.stopPropagation();
      dropdown.style.display = dropdown.style.display === 'none' ? 'flex' : 'none';
      if (dropdown.style.display === 'flex') syncInPageUI();
    });
 
-     document.addEventListener('click', (e) => {
-       if (!container.contains(e.target)) dropdown.style.display = 'none';
-     });
+   // Cierra el menú sólo si haces clic totalmente afuera
+   document.addEventListener('click', (e) => {
+     const path = e.composedPath();
+     if (!path.includes(container)) {
+       dropdown.style.display = 'none';
+     }
+   });
 
-       container.appendChild(btn);
-       container.appendChild(dropdown);
-       searchForm.prepend(container);
+   container.appendChild(btn);
+   container.appendChild(dropdown);
+   searchForm.prepend(container);
  }
 
  function removeInPageUI() {
@@ -559,8 +565,8 @@
    } else {
      const existingLogo = utContainer.querySelector('.ut-archive-logo');
      if (existingLogo && S && S.archiveLogoUrl && existingLogo.src !== S.archiveLogoUrl) {
-       existingLogo.src = S.archiveLogoUrl;
-       existingLogo.style.display = 'block';
+         existingLogo.src = S.archiveLogoUrl;
+         existingLogo.style.display = 'block';
      }
    }
 
@@ -655,8 +661,8 @@
    } else {
      const existingLogo = utHome.querySelector('.ut-archive-logo');
      if (existingLogo && S && S.archiveLogoUrl && existingLogo.src !== S.archiveLogoUrl) {
-       existingLogo.src = S.archiveLogoUrl;
-       existingLogo.style.display = 'block';
+         existingLogo.src = S.archiveLogoUrl;
+         existingLogo.style.display = 'block';
      }
    }
 
@@ -689,7 +695,7 @@
    const safeS = S || {};
    const q = isHome ? randomVoidQuery(safeS.singleChar) : contextualVoidQuery(contextText);
    let dateStr = '';
-
+   
    if (safeS.feedEraToggle !== false) {
      const eraToUse = (safeS.sidebarEra === 'any' || !safeS.sidebarEra) ? 'random' : safeS.sidebarEra;
      dateStr = buildDateStr(eraToUse);
@@ -721,7 +727,7 @@
 
      thumb.style.cssText = `width:100%; aspect-ratio:16/9; border-radius:12px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:linear-gradient(135deg,hsl(${hue},20%,7%),hsl(${hue},10%,4%));`;
      iconSpan.style.cssText = 'font-size:48px; position:absolute; z-index:2; opacity:0.5;';
-
+     
      textContainer.style.cssText = 'display:flex; flex-direction:column; gap:4px; padding:0 4px;';
      title.style.cssText = 'font-size:16px; color:#f1f1f1; line-height:1.4; font-family:monospace; word-break:break-all; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-weight:bold;';
    } else {
@@ -744,12 +750,12 @@
      const imgEl = document.createElement('img');
      imgEl.style.cssText = 'width:100%; height:100%; object-fit:cover; position:absolute; inset:0; z-index:1; display:block;';
      imgEl.src = `${safeS.imgFolderUrl}${randImgNum}.png`;
-
+     
      iconSpan.style.display = 'none';
 
      imgEl.onerror = () => {
        imgEl.style.display = 'none';
-       iconSpan.style.display = 'block';
+       iconSpan.style.display = 'block'; 
      };
 
      thumb.appendChild(imgEl);
