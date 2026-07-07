@@ -77,9 +77,9 @@ Undertuber has 13 buttons to pull specific data structures from YouTube.
 
 Undertuber can be run directly inside YouTube via the Chromum Browser Extension, or remotely via the Mobile-Friendly Website.
 
-### Method 1: Chromium Browser Extension (Desktop)
+### Method 1: Chromium/Firefox Browser Extension (Desktop)
 1. Download or clone this repository.
-2. Open Chromium Based Browser and navigate to `yourbrowser://extensions/`.
+2. Open Chromium/Firefox Based Browser and navigate to `yourbrowser://extensions/`.
 3. Enable **"Developer mode"** in the top right corner.
 4. Click **"Load unpacked"** and select the folder containing the extension files (`manifest.json`, `content.js`, etc.).
 
@@ -112,7 +112,7 @@ Undertuber can be run directly inside YouTube via the Chromum Browser Extension,
 
 ## <img src="thumbs/Undetuber_logo.png" alt="Logo" width="40"/> Project Structure
 
-* `manifest.json` - Chromium extension configuration (Manifest V3).
+* `manifest.json` - Chromium/Firefox extension configuration (Manifest V3).
 * `content.js` - The core engine. Runs natively in the YouTube DOM to handle UI injection, feed replacement, and event interception.
 * `popup.html` & `popup.js` - The extension control panel.
 * `index.html` - The standalone web app terminal.
