@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Undertuber // Underground Youtube Search Engine",
+  "name": "Undertuber // YouTube Underground Search Engine",
   "description": "Hijacks YouTube search to block content with real human videos.",
-  "version": "1.0.0",
+  "version": "1.2.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "https://github.com/BooleanMuse/Undertuber-Underground-Youtube-Search-Engine",
+      "strict_min_version": "109.0"
+    }
+  },
   "action": {
     "default_popup": "popup.html",
     "default_title": "Undertuber"
@@ -23,8 +29,8 @@
     }
   ],
   "icons": {
-    "16":  "icon16.png",
-    "48":  "icon48.png",
+    "16": "icon16.png",
+    "48": "icon48.png",
     "128": "icon128.png"
   }
 }
